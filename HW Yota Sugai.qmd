@@ -1,0 +1,75 @@
+---
+title: "HW1 Yota Sugai"
+format: revealjs
+editor: visual
+---
+
+# Exercise-Bash
+Question:
+What is difference between shell and bash?
+
+“shell” is a broad term that refers to any program that provides a command-line interface, “Bash” is a specific type of shell that is widely used in Unix/Linux systems.
+
+
+## Exercise 1:
+What is your home directory? What files/folders exist in your home directory? Navigate to it and then navigate back to your notes.
+```{bash}
+echo $HOME
+ls 
+```
+My home directory is /Users/yotasugai
+My qmd file, README file text file, and my ssh keys are in my home directory.
+
+## Exercise 2:
+Where does the following command take you? How does it work?
+```{bash}
+cd ~/../../..
+```
+It took me to "yotasugai@sugaiyoutanoAir"
+
+## Exercise 3:
+Read the manual page of ls. What does the a flag do? What does the l flag do?
+
+
+-a      Include directory entries whose names begin with a dot (‘.’). 
+
+-l      (The lowercase letter “ell”.) List files in the long format, as
+described in the The Long Format subsection below.
+
+
+## Exercise 4:
+Create a new file with touch command. for instance touch myfile.txt. Run stat myfile.txt what information do you get?
+```{bash}
+touch myfile.txt
+stat myfile.txt
+```
+The stat function present information including File type and inode information, Access, modification, and change times, File size in bytes, Block size, Number of blocks allocated, I/O block size, Device type, Inode number, Links count, Owner and group information, and File permissions.
+
+
+
+## Exercise 5:
+Run ls and from there list select a file. Now run ‘ls -l’ to display the details of the files, showing that it has been created or updated. what information does it give you regarding the myfile.txt and your selected file.
+```{bash}
+ls
+```
+```{bash}
+ls -l myfile.txt README.md
+```
+I can see permissions, owner, group, file size, modification time, and file/directory name
+ 
+ 
+## Exercise 6:
+Add the following line This line is my first line to myfile.txt. Then run cat myfile.txt to show the line is added.
+```{bash}
+echo "This line is my first line" >> myfile.txt
+cat myfile.txt
+```
+
+## Exercise 7:
+Run touch myfile.txt then run ls -l myfile.txt does the “timestep” for the file myfile.txt is updated? Show the output. Note: Another common use of the touch command is to update the timestamps of an existing file.
+```{bash}
+touch myfile.txt
+ls -l myfile.txt
+```
+
+Yes. The time has been updated.
