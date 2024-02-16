@@ -1,0 +1,132 @@
+---
+title: "HW2"
+format: html
+editor: visual
+---
+
+# Homework 2
+
+Problem 1:
+
+```{r}
+library(tidyverse)
+
+tribble( ~x,    ~y,    ~w,    ~z,
+              210,   300,   220,   180,
+              102,   100,   119,   187,
+              176,   175,   188,   173,
+              87,    95,   91,     94,
+              202,   210,  234,    218,
+              110,   122,  131,    128,
+) -> dt
+dt
+```
+
+## 1_a:
+
+-   Use and show a `map` function to find the "mean" of each column of the `dt` data table
+
+```{r}
+map(dt,mean)
+```
+
+## 1_b:
+
+-   Use and show a `map` function to find the "standard deviation" of each column of the `dt` data table.
+
+```{r}
+map(dt,sd)
+```
+
+## 1_c:
+
+-   Use and show a map function that will calculate the "square root" of each value of each column of the data table `dt`.
+
+```{r}
+map(dt,sqrt)
+```
+
+## 1_d:
+
+-   Use R code to find the "mean", "max", "1st Quartile", "3rd Quartile", "Median", and "Min" for each column of the `dt` data table. (Hint: You do not have to use a map function)
+
+```{r}
+summary(dt)
+```
+
+# Problem 2:
+
+Write a function that uses a for loop that, for each iteration, randomly draws 5 observations from an exponential distribution with "rate" parameter 1 (use `rexp()`) and calculates its "mean". It should do this 10,000 times. Choose an appropriate plot to plot the distribution of "means".
+
+```{r}
+p2 <- function() {
+  means <- numeric(10000)
+  
+  for (i in 1:10000) {
+    samples <- rexp(5, rate = 1)
+        means[i] <- mean(samples)
+  }
+    hist(means, breaks = 50, col = "skyblue", xlab = "Mean", main = "Distribution of Means")
+}
+
+p2()
+
+
+```
+
+## 2_a:
+
+-   Repeat part 1 by using a `map_*()` function.
+
+```{r}
+map_dbl(dt, mean)
+```
+
+## 2_b:
+
+-   Repeat part 1 by using the `replicate()` function.
+
+```{r}
+replicate(1, sapply(dt, sd))
+```
+
+## 2_c:
+
+-   Use a another for loop that will print out plots for sample sizes of 5, 10, and 20 observations (instead of just 5).
+
+```{r}
+p2c <- function(sample_sizes) {
+  for (size in sample_sizes) {
+    means <- numeric(10000)
+    
+        for (i in 1:10000) {
+      samples <- rexp(size, rate = 1)
+            means[i] <- mean(samples)
+    }
+    
+    hist(means, breaks = 50, col = "skyblue", xlab = "Mean", main = paste("Distribution of Means", size, ""))
+  }
+}
+
+p2c(c(5, 10, 20))
+
+```
+
+# Problem 3:
+
+-   Use and show R coding to calculate the "standard deviation" for each variable of the data table `mtcars` using the "Special For Loop Method".
+
+```         
+```
+
+```{r}
+data(mtcars)
+
+output <- vector("double", ncol(mtcars))
+
+for (i in seq_along(mtcars)) {
+  output[i] <- sd(mtcars[[i]])
+}
+
+output
+```
