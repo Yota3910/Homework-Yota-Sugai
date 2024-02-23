@@ -13,24 +13,41 @@ editor: visual
 library(tidyverse)
 library(dplyr)
 library(lubridate)
+wmata <- read.csv("wmata_ridership.csv")
 ```
-
 
 ```{r}
-wmata <- read.csv("wmata_ridership.csv")
+wmata$Date <- ymd(wmata$Date)
+wmata_filtered <- wmata %>%
+  filter(year(Date) != 2004 & year(Date) != 2005)
 
-wmata %>% 
-  ymd(Date) %>% 
-  group_by(year(Date)) %>% 
-  group_by(month(Date)) %>% 
-  sum
+wmata_filtered <- wmata_filtered %>%
+  mutate(month = month(Date),
+         day_of_week = wday(Date, label = TRUE)) %>%
+           group_by(month, day_of_week) %>% summarise(total_rides = sum(Total)) %>%
+    ungroup()
+
+wmata_filtered <- wmata_filtered %>%
+  group_by(month) %>%
+  mutate(proportion = total_rides / sum(total_rides))
+
+ggplot(wmata_filtered, aes(x = day_of_week, y = proportion)) +
+  geom_boxplot() +
+  facet_wrap(~month, scales = "free_x") +
+  labs(x = "Day of the Week", y = "Proportion of Rides") +
+  theme_minimal()
 
 ```
+
+
 
 ### Problem 2:
 
 • Write only one line of the code to return only the leap years fo years 2024, 3021, 2000 or 1800, 800, 5050, 600 and 7156.
 
 ```{r}
+years <- c(2024, 3021, 2000, 1800, 800, 5050, 600, 7156)
+
+years[years %% 4 == 0 & (years %% 100 != 0 | years %% 400 == 0)]
 
 ```
