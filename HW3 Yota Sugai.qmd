@@ -9,6 +9,7 @@ editor: visual
 ### Problem 1:
 
 • Load the wmata_ridership data frame into R from https://dcgerard.github.io/stat\_ 412_612/data/wmata_ridership.csv. For each month, calculate the proportion of rides made on a given day of the month. Then make box plots of the proportions of ridership vs day of the weak. But exclude any days from 2004 and 2005.
+
 ```{r}
 library(tidyverse)
 library(dplyr)
@@ -38,8 +39,6 @@ ggplot(wmata_filtered, aes(x = day_of_week, y = proportion)) +
   theme_minimal()
 
 ```
-
-
 
 ### Problem 2:
 
